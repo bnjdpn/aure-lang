@@ -14,10 +14,14 @@ class Token:
 
 KEYWORDS = {
     "and": "AND",
+    "break": "BREAK",
+    "continue": "CONTINUE",
     "else": "ELSE",
     "false": "FALSE",
+    "for": "FOR",
     "fn": "FN",
     "if": "IF",
+    "in": "IN",
     "let": "LET",
     "nil": "NIL",
     "or": "OR",

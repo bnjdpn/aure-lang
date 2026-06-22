@@ -1,4 +1,4 @@
-print("Hello from Aure 0.1.0")
+print("Hello from Aure 1.0.0")
 
 fn greet(name) {
   "Welcome, " + name

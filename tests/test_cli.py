@@ -43,11 +43,20 @@ class AureCliTests(unittest.TestCase):
         self.assertEqual(proc.returncode, 0)
         self.assertEqual(proc.stdout, "hello from file\n")
 
+    def test_examples_run_successfully(self):
+        for example in sorted((ROOT / "examples").glob("*.aure")):
+            with self.subTest(example=example.name):
+                proc = run_cli(str(example))
+
+                self.assertEqual(proc.returncode, 0, proc.stderr)
+                self.assertEqual(proc.stderr, "")
+                self.assertNotEqual(proc.stdout, "")
+
     def test_cli_version(self):
         proc = run_cli("--version")
 
         self.assertEqual(proc.returncode, 0)
-        self.assertEqual(proc.stdout, "Aure 0.1.0\n")
+        self.assertEqual(proc.stdout, "Aure 1.0.0\n")
 
     def test_cli_reports_errors_to_stderr(self):
         proc = run_cli("-e", "print(missing)")

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Aure is a small, practical programming language for clear scripts, teaching, and language experimentation. The "perfect" scope for v0.1 is not maximal feature count; it is a coherent language with a small surface area, deterministic behavior, readable errors, tests, examples, and documentation.
+Aure is a small, practical programming language for clear scripts, teaching, and language experimentation. The "perfect" scope for v1.0 is not maximal feature count; it is a coherent language with a small surface area, deterministic behavior, readable errors, tests, examples, and documentation.
 
 ## Design Principles
 
@@ -34,29 +34,37 @@ Core values:
 - numbers: integer and decimal values represented as Python numbers
 - strings with common escapes
 - arrays: `[1, 2, 3]`
-- maps: `{"name": "Aure", "version": 0.1}`
+- maps: `{"name": "Aure", "version": 1.0}`
 - first-class functions and closures
 
 Core syntax:
 
 - `let name = expression` creates or updates a binding in the current scope.
+- `name = expression` updates an existing binding.
+- `collection[index] = expression` updates arrays and maps.
 - `fn name(args) { body }` creates a named function.
 - anonymous functions use `fn(args) { body }`.
 - `if condition { then } else { otherwise }` evaluates to the last value in the chosen block.
 - `while condition { body }` repeats while truthy.
+- `for name in collection { body }` iterates arrays, strings, and map keys.
+- `break` and `continue` control loops.
 - `return expression` exits the current function.
+- `and` and `or` short-circuit logical expressions.
 - `expression |> call(...)` pipes the left value into the next call as the first argument.
 - comments start with `#` and run to the end of the line.
 
 Built-ins:
 
 - `print(...)` writes values to stdout and returns `nil`.
+- `assert(condition[, message])` raises a runtime error for falsey conditions.
 - `len(value)` returns length for strings, arrays, and maps.
 - `type(value)` returns an Aure type name.
 - `str(value)`, `int(value)`, and `float(value)` convert values.
 - `range(stop)` and `range(start, stop)` return arrays of integers.
 - `map(array, fn)` and `filter(array, fn)` return transformed arrays.
 - `reduce(array, initial, fn)` folds an array.
+- `push(array, value)` and `pop(array)` mutate arrays.
+- `keys(map)`, `values(map)`, and `contains(collection, value)` inspect collections.
 
 ## Architecture
 
@@ -67,7 +75,7 @@ The implementation is a tree-walking interpreter:
 - `src/aure/runtime.py` evaluates the AST in nested environments.
 - `src/aure/cli.py` exposes `aure file.aure`, `aure -e "code"`, and `aure repl`.
 
-This keeps the v0.1 implementation small and inspectable while leaving a clean path to bytecode or static analysis later.
+This keeps the v1.0 implementation small and inspectable while leaving a clean path to bytecode or static analysis later.
 
 ## Error Handling
 
@@ -90,11 +98,11 @@ Coverage targets the lexer/parser boundary, runtime semantics, built-ins, pipeli
 
 ## Release Criteria
 
-Version `0.1.0` is releasable when:
+Version `1.0.0` is releasable when:
 
 - the interpreter runs real `.aure` examples;
 - unit tests pass with Python 3.9+;
 - CLI commands work for file, `-e`, and REPL smoke paths;
 - README, language guide, examples, license, changelog, and release notes exist;
 - the repository is public under `bnjdpn`;
-- GitHub release `v0.1.0` exists with concise notes.
+- GitHub release `v1.0.0` exists with concise notes.

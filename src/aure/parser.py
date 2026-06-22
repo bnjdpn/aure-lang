@@ -22,6 +22,13 @@ class FunctionStmt:
 
 
 @dataclass(frozen=True)
+class ForStmt:
+    name: str
+    iterable: object
+    body: object
+
+
+@dataclass(frozen=True)
 class ReturnStmt:
     value: object
 
@@ -30,6 +37,16 @@ class ReturnStmt:
 class WhileStmt:
     condition: object
     body: object
+
+
+@dataclass(frozen=True)
+class BreakStmt:
+    pass
+
+
+@dataclass(frozen=True)
+class ContinueStmt:
+    pass
 
 
 @dataclass(frozen=True)
@@ -50,6 +67,12 @@ class Literal:
 @dataclass(frozen=True)
 class Variable:
     name: str
+
+
+@dataclass(frozen=True)
+class Assign:
+    name: str
+    value: object
 
 
 @dataclass(frozen=True)
@@ -81,6 +104,13 @@ class Index:
 
 
 @dataclass(frozen=True)
+class IndexAssign:
+    collection: object
+    index: object
+    value: object
+
+
+@dataclass(frozen=True)
 class Unary:
     op: str
     right: object
@@ -88,6 +118,13 @@ class Unary:
 
 @dataclass(frozen=True)
 class Binary:
+    left: object
+    op: str
+    right: object
+
+
+@dataclass(frozen=True)
+class Logical:
     left: object
     op: str
     right: object
@@ -122,8 +159,14 @@ class Parser:
             return self._let_statement()
         if self._check("FN") and self._check_next("IDENTIFIER"):
             return self._function_statement()
+        if self._match("FOR"):
+            return self._for_statement()
         if self._match("RETURN"):
             return ReturnStmt(self._expression())
+        if self._match("BREAK"):
+            return BreakStmt()
+        if self._match("CONTINUE"):
+            return ContinueStmt()
         if self._match("WHILE"):
             condition = self._expression()
             return WhileStmt(condition, self._block())
@@ -139,6 +182,12 @@ class Parser:
         name = self._consume("IDENTIFIER", "Expected function name.")
         params = self._parameters()
         return FunctionStmt(name.lexeme, params, self._block())
+
+    def _for_statement(self):
+        name = self._consume("IDENTIFIER", "Expected loop variable name after 'for'.")
+        self._consume("IN", "Expected 'in' after loop variable.")
+        iterable = self._expression()
+        return ForStmt(name.lexeme, iterable, self._block())
 
     def _parameters(self):
         self._consume("LPAREN", "Expected '(' before parameters.")
@@ -160,12 +209,36 @@ class Parser:
         return Block(statements)
 
     def _expression(self):
-        return self._pipe()
+        return self._assignment()
+
+    def _assignment(self):
+        expr = self._pipe()
+        if self._match("EQUAL"):
+            value = self._assignment()
+            if isinstance(expr, Variable):
+                return Assign(expr.name, value)
+            if isinstance(expr, Index):
+                return IndexAssign(expr.collection, expr.index, value)
+            token = self._previous()
+            raise AureSyntaxError("Invalid assignment target at line %s, column %s." % (token.line, token.column))
+        return expr
 
     def _pipe(self):
-        expr = self._equality()
+        expr = self._or()
         while self._match("PIPE"):
-            expr = Pipe(expr, self._equality())
+            expr = Pipe(expr, self._or())
+        return expr
+
+    def _or(self):
+        expr = self._and()
+        while self._match("OR"):
+            expr = Logical(expr, self._previous().lexeme, self._and())
+        return expr
+
+    def _and(self):
+        expr = self._equality()
+        while self._match("AND"):
+            expr = Logical(expr, self._previous().lexeme, self._equality())
         return expr
 
     def _equality(self):

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" role="img" aria-labelledby="title desc">
+  <title id="title">Aure logo</title>
+  <desc id="desc">Aure wordmark with a gold ring and a geometric A mark.</desc>
+  <defs>
+    <linearGradient id="aure-gold" x1="40" y1="40" x2="210" y2="220" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE08A"/>
+      <stop offset="0.48" stop-color="#F6B94F"/>
+      <stop offset="1" stop-color="#E8743D"/>
+    </linearGradient>
+    <linearGradient id="aure-teal" x1="91" y1="139" x2="164" y2="139" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#40D6C1"/>
+      <stop offset="1" stop-color="#2E9EE8"/>
+    </linearGradient>
+    <style>
+      .word,
+      .symbol {
+        fill: #19202E;
+        stroke: #FFFFFF;
+        paint-order: stroke fill;
+      }
+
+      .word {
+        stroke-width: 6px;
+      }
+
+      .symbol {
+        stroke-width: 7px;
+      }
+
+      .tagline {
+        fill: #596172;
+        stroke: #FFFFFF;
+        stroke-width: 4px;
+        paint-order: stroke fill;
+      }
+    </style>
+  </defs>
+
+  <g transform="translate(22 22)">
+    <circle cx="108" cy="108" r="88" fill="none" stroke="url(#aure-gold)" stroke-width="15"/>
+    <circle cx="108" cy="108" r="68" fill="none" stroke="#F4C768" stroke-width="2" opacity="0.36"/>
+    <path class="symbol" fill-rule="evenodd" d="M108 48 166 174h-20l-15-34H85l-15 34H50L108 48Zm-15 75h30l-15-36-15 36Z"/>
+    <path d="M84 132h48" fill="none" stroke="url(#aure-teal)" stroke-width="16" stroke-linecap="round"/>
+    <path d="M177 70c19 20 30 46 30 76 0 16-3 31-9 44" fill="none" stroke="#33B8D7" stroke-width="9" stroke-linecap="round" opacity="0.82"/>
+  </g>
+
+  <text x="258" y="149" class="word" font-family="Inter, SF Pro Display, Segoe UI, Arial, sans-serif" font-size="108" font-weight="760">Aure</text>
+  <text x="264" y="194" class="tagline" font-family="Inter, SF Pro Text, Segoe UI, Arial, sans-serif" font-size="28" font-weight="520">small practical programming language</text>
+</svg>

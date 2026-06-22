@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build and publish Aure v0.1.0, a small interpreted programming language with CLI, REPL, examples, tests, documentation, commit, push, and GitHub release.
+**Goal:** Build and publish Aure v1.0.0, a small interpreted programming language with CLI, REPL, examples, tests, documentation, commit, push, and GitHub release.
 
 **Architecture:** Aure is implemented as a Python 3.9+ tree-walking interpreter. Source text flows through lexer, parser, AST, runtime evaluator, built-ins, and CLI wrappers.
 
@@ -189,7 +189,7 @@ Expected: all tests pass.
 - [ ] **Step 2: Run CLI smoke checks**
 
 Run: `PYTHONPATH=src python3 -m aure --version`
-Expected: prints `Aure 0.1.0`.
+Expected: prints `Aure 1.0.0`.
 
 Run: `PYTHONPATH=src python3 -m aure examples/hello.aure`
 Expected: prints a friendly Aure greeting.
@@ -201,7 +201,7 @@ Expected: only intended project files.
 
 - [ ] **Step 4: Commit all project files**
 
-Run: `git add . && git commit -m "Release Aure 0.1.0"`
+Run: `git add . && git commit -m "Release Aure 1.0.0"`
 Expected: initial commit succeeds.
 
 - [ ] **Step 5: Create public GitHub repo and push**
@@ -211,8 +211,44 @@ Expected: repository exists at `https://github.com/bnjdpn/aure-lang`.
 
 - [ ] **Step 6: Create release**
 
-Run: `gh release create v0.1.0 --title "Aure 0.1.0" --notes-file RELEASE.md`
-Expected: public release exists for tag `v0.1.0`.
+Run: `gh release create v1.0.0 --title "Aure 1.0.0" --notes-file RELEASE.md`
+Expected: public release exists for tag `v1.0.0`.
+
+### Task 7: Aure 1.0 Language Enrichment
+
+**Files:**
+- Modify: `src/aure/lexer.py`
+- Modify: `src/aure/parser.py`
+- Modify: `src/aure/runtime.py`
+- Modify: `tests/test_language.py`
+- Modify: `tests/test_cli.py`
+- Modify: `README.md`
+- Modify: `docs/language-guide.md`
+- Modify: `CHANGELOG.md`
+- Modify: `RELEASE.md`
+- Create: `examples/collections.aure`
+
+- [ ] **Step 1: Add failing language tests**
+
+Add tests for assignment to existing names, array/map indexed assignment, `for`, `break`, `continue`, short-circuiting `and`/`or`, and collection built-ins.
+
+- [ ] **Step 2: Run targeted tests to verify they fail before implementation**
+
+Run: `PYTHONPATH=src python3 -m unittest tests.test_language.AureLanguageTests.test_for_loop_assignment_mutation_and_collection_builtins tests.test_language.AureLanguageTests.test_logical_operators_short_circuit_and_assert_builtin tests.test_language.AureLanguageTests.test_assignment_requires_existing_binding`
+Expected: fail on missing parser/runtime support.
+
+- [ ] **Step 3: Implement 1.0 language support**
+
+Add lexer keywords, AST nodes, parser rules, runtime signals, assignment helpers, iteration helpers, logical evaluation, and collection built-ins.
+
+- [ ] **Step 4: Update docs, examples, and metadata**
+
+Set package version to `1.0.0`, document the 1.0 language surface, add `examples/collections.aure`, and update release notes.
+
+- [ ] **Step 5: Run full verification**
+
+Run: `PYTHONPATH=src python3 -m unittest`
+Expected: all tests pass.
 
 ## Self-Review
 

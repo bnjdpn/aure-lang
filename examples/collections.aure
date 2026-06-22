@@ -1,0 +1,24 @@
+let scores = [3, 5, 8]
+push(scores, 13)
+scores[1] = 7
+
+let total = 0
+for score in scores {
+  if score == 8 {
+    continue
+  }
+
+  total = total + score
+
+  if total > 20 {
+    break
+  }
+}
+
+let report = {"language": "Aure"}
+report["version"] = "1.0"
+report["scores"] = scores
+
+assert(contains(keys(report), "version"), "report has a version")
+
+print(report["language"], report["version"], total, values(report))

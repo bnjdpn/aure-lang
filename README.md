@@ -1,8 +1,12 @@
+<p align="center">
+  <img src="docs/assets/aure-logo.svg" alt="Aure logo" width="420">
+</p>
+
 # Aure
 
 Aure is a small practical programming language with a readable Python reference interpreter.
 
-Version `0.1.0` focuses on a coherent core: functions, closures, arrays, maps, loops, pipelines, built-ins, a CLI, a REPL, examples, and tests.
+Version `1.0.0` focuses on a coherent core: functions, closures, arrays, maps, loops, mutation, pipelines, collection built-ins, a CLI, a REPL, examples, and tests.
 
 ## Quick Start
 
@@ -11,6 +15,7 @@ Run from a checkout:
 ```bash
 PYTHONPATH=src python3 -m aure --version
 PYTHONPATH=src python3 -m aure examples/hello.aure
+PYTHONPATH=src python3 -m aure examples/collections.aure
 PYTHONPATH=src python3 -m aure -e 'print("Aure", 1 + 2 * 3)'
 ```
 
@@ -45,13 +50,17 @@ print("score:", add10(total))
 
 - numbers, strings, booleans, `nil`, arrays, and maps
 - `let` bindings that create or update names
+- assignment with `name = expression`
 - named and anonymous functions
 - closures
 - `if` expressions
-- `while` loops
+- `while` loops and `for name in collection` loops
+- `break` and `continue`
+- short-circuiting `and` and `or`
 - array, string, and map indexing
+- array and map indexed assignment
 - pipeline operator: `value |> call(extra)`
-- built-ins: `print`, `len`, `type`, `str`, `int`, `float`, `range`, `map`, `filter`, `reduce`
+- built-ins: `print`, `assert`, `len`, `type`, `str`, `int`, `float`, `range`, `map`, `filter`, `reduce`, `push`, `pop`, `keys`, `values`, `contains`
 
 See [docs/language-guide.md](docs/language-guide.md) for syntax details.
 
@@ -63,11 +72,11 @@ PYTHONPATH=src python3 -m unittest
 
 ## Project Status
 
-Aure is an experimental v0.1 language. It is intentionally small and optimized for clarity over raw speed. The current interpreter is a tree-walking reference implementation, which makes the language easy to inspect and evolve.
+Aure 1.0 is intentionally small and optimized for clarity over raw speed. The current interpreter is a tree-walking reference implementation, which makes the language easy to inspect and evolve.
 
 ## AI Assistance
 
-Aure v0.1.0 was written with assistance from GPT-5 through Codex.
+Aure v1.0.0 was written with assistance from GPT-5 through Codex.
 
 ## License
 

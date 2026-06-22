@@ -1,6 +1,6 @@
 import unittest
 
-from aure import run
+from aure import AureRuntimeError, run
 
 
 class AureLanguageTests(unittest.TestCase):
@@ -54,6 +54,66 @@ class AureLanguageTests(unittest.TestCase):
         result = run(source)
 
         self.assertEqual(result.output, "15\n")
+
+    def test_for_loop_assignment_mutation_and_collection_builtins(self):
+        source = """
+        let values = [1, 2, 3]
+        values[1] = values[1] * 10
+        push(values, 4)
+
+        let total = 0
+        for value in values {
+          if value == 3 {
+            continue
+          }
+
+          total = total + value
+
+          if total > 20 {
+            break
+          }
+        }
+
+        let user = {"name": "Aure"}
+        user["version"] = "1.0"
+        let last = pop(values)
+
+        print(values, total, user["version"], contains(keys(user), "name"), last)
+        """
+
+        result = run(source)
+
+        self.assertEqual(result.output, "[1, 20, 3] 21 1.0 true 4\n")
+
+    def test_logical_operators_short_circuit_and_assert_builtin(self):
+        source = """
+        let called = false
+
+        fn mark() {
+          called = true
+          true
+        }
+
+        assert(true, "assert accepts truthy values")
+
+        if false and mark() {
+          print("bad")
+        } else {
+          print(called)
+        }
+
+        if true or mark() {
+          print(called)
+        }
+        """
+
+        result = run(source)
+
+        self.assertEqual(result.output, "false\nfalse\n")
+
+    def test_assignment_requires_existing_binding(self):
+        with self.assertRaisesRegex(AureRuntimeError, "Undefined name 'missing'."):
+            run("missing = 1")
 
 
 if __name__ == "__main__":
