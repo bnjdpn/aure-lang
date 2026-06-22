@@ -65,6 +65,10 @@ PYTHONPATH=src python3 -m unittest
 
 Aure is an experimental v0.1 language. It is intentionally small and optimized for clarity over raw speed. The current interpreter is a tree-walking reference implementation, which makes the language easy to inspect and evolve.
 
+## AI Assistance
+
+Aure v0.1.0 was written with assistance from GPT-5 through Codex.
+
 ## License
 
 MIT. See [LICENSE](LICENSE).

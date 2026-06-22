@@ -2,6 +2,8 @@
 
 Aure 0.1.0 is the first public release of a small practical programming language and its Python reference interpreter.
 
+Aure v0.1.0 was written with assistance from GPT-5 through Codex.
+
 ## Highlights
 
 - Expression-oriented syntax with functions, closures, arrays, maps, `if`, and `while`.
