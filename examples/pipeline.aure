@@ -1,0 +1,6 @@
+let total = range(1, 10)
+  |> filter(fn(x) { x % 2 == 1 })
+  |> map(fn(x) { x * x })
+  |> reduce(0, fn(acc, x) { acc + x })
+
+print("sum of odd squares:", total)
